@@ -1,0 +1,198 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddjyevgn668ki"]
+
+[ext_resource type="Script" uid="uid://bg0176wuxs7no" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://6728smke22ud" path="res://scenes/spaceship.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://blirgl7monx83" path="res://scenes/asteroids/asteroid.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://dfgv6fvrxlfdk" path="res://scenes/asteroids/asteroid2.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dllx62g5itgw8" path="res://scenes/asteroids/asteroid3.tscn" id="3_tefeu"]
+[ext_resource type="AudioStream" uid="uid://dceoeen2to68r" path="res://sound/Explosion.wav" id="5_tipki"]
+[ext_resource type="Shader" uid="uid://7523jiikho0x" path="res://shader/scrolling.gdshader" id="6_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://bhuvvxdoglq1j" path="res://assets/warning.png" id="7_choun"]
+[ext_resource type="Texture2D" uid="uid://b6var5pmctsyb" path="res://assets/spaceBackgroundClear.png" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://dq4xgv2casro0" path="res://assets/heart.png" id="7_ya4ey"]
+[ext_resource type="AudioStream" uid="uid://dhe0txlb65040" path="res://sound/DontCrash!.wav" id="9_85g3d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
+shader = ExtResource("6_o6xl0")
+
+[node name="main" type="Node" node_paths=PackedStringArray("spawnPoints")]
+script = ExtResource("1_0wfyh")
+bodys = Array[PackedScene]([ExtResource("2_tbgi4"), ExtResource("3_tefeu"), ExtResource("2_sugp2")])
+spawnPoints = [NodePath("Spawnpoints/Node2D"), NodePath("Spawnpoints/Node2D6"), NodePath("Spawnpoints/Node2D7"), NodePath("Spawnpoints/Node2D8"), NodePath("Spawnpoints/Node2D9"), NodePath("Spawnpoints/Node2D10"), NodePath("Spawnpoints/Node2D11"), NodePath("Spawnpoints/Node2D12"), NodePath("Spawnpoints/Node2D13"), NodePath("Spawnpoints/Node2D4"), NodePath("Spawnpoints/Node2D5"), NodePath("Spawnpoints/Node2D2"), NodePath("Spawnpoints/Node2D3")]
+spawnTime = 0.5
+highestFlySpeed = 1000.0
+
+[node name="BodySpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_tipki")
+
+[node name="Spaceship" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(557, 484)
+
+[node name="Spawnpoints" type="Node" parent="."]
+
+[node name="Node2D" type="Node2D" parent="Spawnpoints"]
+position = Vector2(178, 0)
+
+[node name="Node2D6" type="Node2D" parent="Spawnpoints"]
+position = Vector2(69, 0)
+
+[node name="Node2D7" type="Node2D" parent="Spawnpoints"]
+position = Vector2(263, 0)
+
+[node name="Node2D8" type="Node2D" parent="Spawnpoints"]
+position = Vector2(445, 0)
+
+[node name="Node2D9" type="Node2D" parent="Spawnpoints"]
+position = Vector2(632, 0)
+
+[node name="Node2D10" type="Node2D" parent="Spawnpoints"]
+position = Vector2(875, 0)
+
+[node name="Node2D11" type="Node2D" parent="Spawnpoints"]
+position = Vector2(1068, 0)
+
+[node name="Node2D12" type="Node2D" parent="Spawnpoints"]
+position = Vector2(941, 0)
+
+[node name="Node2D13" type="Node2D" parent="Spawnpoints"]
+position = Vector2(691, 0)
+
+[node name="Node2D4" type="Node2D" parent="Spawnpoints"]
+position = Vector2(355, 0)
+
+[node name="Node2D5" type="Node2D" parent="Spawnpoints"]
+position = Vector2(766, 0)
+
+[node name="Node2D2" type="Node2D" parent="Spawnpoints"]
+position = Vector2(557, 0)
+
+[node name="Node2D3" type="Node2D" parent="Spawnpoints"]
+position = Vector2(997, 0)
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Health" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -125.0
+offset_top = 25.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "3"
+
+[node name="TextureRect" type="TextureRect" parent="UI/Health"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -29.5
+offset_right = -44.0
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_ya4ey")
+
+[node name="GameOverLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -176.0
+offset_right = 132.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
+text = "Game Over!
+Score is: ?
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -38.0
+offset_right = 37.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "restart ?"
+
+[node name="Button2" type="Button" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = 9.0
+offset_right = 72.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "return to menu ?"
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 44.0
+offset_top = 25.0
+offset_right = 151.0
+offset_bottom = 80.0
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 40
+text = "3"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Label"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -29.5
+offset_right = 40.0
+offset_bottom = 10.5
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("7_choun")
+
+[node name="background" type="TextureRect" parent="."]
+z_index = -920
+texture_repeat = 2
+material = SubResource("ShaderMaterial_tipki")
+offset_right = 384.0
+offset_bottom = 216.0
+scale = Vector2(3, 3)
+mouse_filter = 2
+texture = ExtResource("7_o6xl0")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_85g3d")
+autoplay = true
+
+[connection signal="timeout" from="BodySpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="death" from="Spaceship" to="." method="_on_spaceship_death"]
+[connection signal="button_down" from="UI/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="UI/Button2" to="." method="_on_button_2_button_down"]
